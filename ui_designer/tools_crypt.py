@@ -17,9 +17,18 @@ class Ui_MainWindow(object):
         MainWindow.resize(800, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(130, 70, 181, 101))
-        self.label.setObjectName("label")
+        self.photo = QtWidgets.QLabel(self.centralwidget)
+        self.photo.setGeometry(QtCore.QRect(56, 50, 681, 241))
+        self.photo.setText("")
+        self.photo.setPixmap(QtGui.QPixmap("eth.png"))
+        self.photo.setScaledContents(True)
+        self.photo.setObjectName("photo")
+        self.ETH = QtWidgets.QPushButton(self.centralwidget)
+        self.ETH.setGeometry(QtCore.QRect(110, 420, 251, 91))
+        self.ETH.setObjectName("ETH")
+        self.BTC = QtWidgets.QPushButton(self.centralwidget)
+        self.BTC.setGeometry(QtCore.QRect(438, 420, 211, 91))
+        self.BTC.setObjectName("BTC")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
@@ -63,13 +72,16 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         
-        self.actionNew.triggered.connect(lambda: self.clicked("New was clicked"))
+        self.BTC.clicked.connect(self.show_btc)
+        self.ETH.clicked.connect(self.show_eth)
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         MainWindow.setToolTip(_translate("MainWindow", "Paste a file"))
-        self.label.setText(_translate("MainWindow", "TextLabel  w0x7ce"))
+        self.ETH.setText(_translate("MainWindow", "ETH"))
+        self.BTC.setText(_translate("MainWindow", "BTC"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuEdit.setTitle(_translate("MainWindow", "Edit"))
         self.menuAbout.setTitle(_translate("MainWindow", "About"))
@@ -84,10 +96,13 @@ class Ui_MainWindow(object):
         self.actionAuthor.setText(_translate("MainWindow", "Author"))
         self.actionExit.setText(_translate("MainWindow", "Exit"))
         self.actionExit.setShortcut(_translate("MainWindow", "Ctrl+Z"))
+    
+    def show_btc(self):
+        self.photo.setPixmap(QtGui.QBitmap("btc.png"))
+        
+    def show_eth(self):
+        self.photo.setPixmap(QtGui.QBitmap("eth.png"))
 
-    def clicked(self,text):
-        self.label.setText(text)
-        self.label.adjustSize()
 
 if __name__ == "__main__":
     import sys
