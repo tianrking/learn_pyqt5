@@ -10,10 +10,11 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from PyQt5.QtWidgets import QMessageBox
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
+        MainWindow.setObjectName("Crypt Switch")
         MainWindow.resize(800, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -29,6 +30,9 @@ class Ui_MainWindow(object):
         self.BTC = QtWidgets.QPushButton(self.centralwidget)
         self.BTC.setGeometry(QtCore.QRect(438, 420, 211, 91))
         self.BTC.setObjectName("BTC")
+        self.button = QtWidgets.QPushButton(self.centralwidget)
+        self.button.setGeometry(QtCore.QRect(290, 320, 200, 40))
+        self.button.setObjectName("button")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
@@ -74,14 +78,17 @@ class Ui_MainWindow(object):
         
         self.BTC.clicked.connect(self.show_btc)
         self.ETH.clicked.connect(self.show_eth)
+        self.button.clicked.connect(self.show_popup)
+        
 
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Crypt Switch"))
         MainWindow.setToolTip(_translate("MainWindow", "Paste a file"))
         self.ETH.setText(_translate("MainWindow", "ETH"))
         self.BTC.setText(_translate("MainWindow", "BTC"))
+        self.button.setText(_translate("MainWindow", "button"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuEdit.setTitle(_translate("MainWindow", "Edit"))
         self.menuAbout.setTitle(_translate("MainWindow", "About"))
@@ -96,6 +103,23 @@ class Ui_MainWindow(object):
         self.actionAuthor.setText(_translate("MainWindow", "Author"))
         self.actionExit.setText(_translate("MainWindow", "Exit"))
         self.actionExit.setShortcut(_translate("MainWindow", "Ctrl+Z"))
+    
+    def show_popup(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Author")
+        msg.setText("w0x7ce")
+        msg.setIcon(QMessageBox.Question)
+        msg.setStandardButtons(QMessageBox.Cancel|QMessageBox.Retry|QMessageBox.Ignore)
+        
+        msg.setDefaultButton(QMessageBox.Ignore)
+        msg.setInformativeText("informative text,ignore")
+        
+        msg.buttonClicked.connect(self.popup_button)
+        
+        x = msg.exec_()
+    
+    def popup_button(self,i):
+        print(i)
     
     def show_btc(self):
         self.photo.setPixmap(QtGui.QBitmap("btc.png"))
